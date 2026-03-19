@@ -22,10 +22,12 @@ import com.example.grapheneweather.data.WeatherRepository
 
 class WeatherWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
+        val repository = WeatherRepository()
+
         val weather = try {
-            WeatherRepository().getCurrentWeather()
+            repository.getCachedWeather() ?: repository.getCurrentWeather()
         } catch (e: Exception) {
-            WeatherInfo(
+            repository.getCachedWeather() ?: WeatherInfo(
                 temperature = "--°",
                 condition = "Unavailable",
                 locationLabel = "Boulder",
@@ -56,6 +58,9 @@ class WeatherWidget : GlanceAppWidget() {
                 Spacer(modifier = GlanceModifier.height(4.dp))
 
                 Text(text = weather.condition)
+
+                Spacer(modifier = GlanceModifier.height(4.dp))
+
                 Text(text = "${weather.high}  ${weather.low}")
             }
         }
