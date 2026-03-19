@@ -44,18 +44,18 @@ class WeatherWidget : GlanceAppWidget() {
                     style = TextStyle(fontWeight = FontWeight.Normal)
                 )
 
-                Spacer(modifier = GlanceModifier.height(8.dp))
+                Spacer(modifier = GlanceModifier.height(12.dp))
 
                 Text(
                     text = weather.temperature,
                     style = TextStyle(fontWeight = FontWeight.Bold)
                 )
 
-                Spacer(modifier = GlanceModifier.height(4.dp))
+                Spacer(modifier = GlanceModifier.height(6.dp))
 
                 Text(text = weather.condition)
 
-                Spacer(modifier = GlanceModifier.height(4.dp))
+                Spacer(modifier = GlanceModifier.height(8.dp))
 
                 Text(text = "${weather.high}  ${weather.low}")
             }

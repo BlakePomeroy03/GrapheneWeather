@@ -94,14 +94,17 @@ fun WeatherHomeScreen(weather: WeatherInfo) {
             text = weather.locationLabel,
             style = MaterialTheme.typography.titleMedium
         )
+
         Text(
             text = weather.temperature,
             style = MaterialTheme.typography.displayLarge
         )
+
         Text(
             text = weather.condition,
             style = MaterialTheme.typography.titleLarge
         )
+
         Text(
             text = "${weather.high}  ${weather.low}",
             style = MaterialTheme.typography.bodyLarge
