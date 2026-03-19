@@ -10,13 +10,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.glance.appwidget.updateAll
 import com.example.grapheneweather.data.WeatherInfo
 import com.example.grapheneweather.data.WeatherRepository
 import com.example.grapheneweather.ui.theme.GrapheneWeatherTheme
-import androidx.glance.appwidget.updateAll
 import com.example.grapheneweather.widgets.WeatherWidget
 
 class MainActivity : ComponentActivity() {
@@ -25,6 +30,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         weatherRepository = WeatherRepository(applicationContext)
 
         setContent {

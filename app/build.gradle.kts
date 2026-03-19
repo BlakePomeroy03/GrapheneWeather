@@ -54,20 +54,18 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
 
     implementation(libs.androidx.glance.appwidget)
+    implementation(libs.androidx.datastore.preferences)
 
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.converter.moshi)
     implementation(libs.okhttp.core)
     implementation(libs.moshi.core)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.kotlinx.coroutines.android)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
-
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.moshi.kotlin)
-    implementation(libs.androidx.datastore.preferences)
-
 }

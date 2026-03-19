@@ -1,12 +1,12 @@
 package com.example.grapheneweather.data
 
 import android.content.Context
+import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.first
-import androidx.datastore.preferences.core.MutablePreferences
 
 private val Context.weatherDataStore by preferencesDataStore(name = "weather_cache")
 
