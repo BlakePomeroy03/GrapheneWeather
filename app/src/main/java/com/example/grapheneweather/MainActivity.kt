@@ -16,13 +16,16 @@ import androidx.compose.ui.unit.dp
 import com.example.grapheneweather.data.WeatherInfo
 import com.example.grapheneweather.data.WeatherRepository
 import com.example.grapheneweather.ui.theme.GrapheneWeatherTheme
+import androidx.glance.appwidget.updateAll
+import com.example.grapheneweather.widgets.WeatherWidget
 
 class MainActivity : ComponentActivity() {
-    private val weatherRepository = WeatherRepository()
+    private lateinit var weatherRepository: WeatherRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        weatherRepository = WeatherRepository(applicationContext)
 
         setContent {
             GrapheneWeatherTheme {
@@ -32,6 +35,7 @@ class MainActivity : ComponentActivity() {
                 LaunchedEffect(Unit) {
                     try {
                         weather = weatherRepository.getCurrentWeather()
+                        WeatherWidget().updateAll(applicationContext)
                     } catch (e: Exception) {
                         errorMessage = e.message ?: "Unknown error"
                     }

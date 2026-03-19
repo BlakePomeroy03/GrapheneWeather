@@ -68,5 +68,6 @@ dependencies {
 
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.moshi.kotlin)
+    implementation(libs.androidx.datastore.preferences)
 
 }

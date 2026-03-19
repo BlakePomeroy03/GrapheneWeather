@@ -22,19 +22,15 @@ import com.example.grapheneweather.data.WeatherRepository
 
 class WeatherWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
-        val repository = WeatherRepository()
+        val repository = WeatherRepository(context.applicationContext)
 
-        val weather = try {
-            repository.getCachedWeather() ?: repository.getCurrentWeather()
-        } catch (e: Exception) {
-            repository.getCachedWeather() ?: WeatherInfo(
-                temperature = "--°",
-                condition = "Unavailable",
-                locationLabel = "Boulder",
-                high = "H:--°",
-                low = "L:--°"
-            )
-        }
+        val weather = repository.getCachedWeather() ?: WeatherInfo(
+            temperature = "--°",
+            condition = "Open app to load",
+            locationLabel = "Boulder",
+            high = "H:--°",
+            low = "L:--°"
+        )
 
         provideContent {
             Column(

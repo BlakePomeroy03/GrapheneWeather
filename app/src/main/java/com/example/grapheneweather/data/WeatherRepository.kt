@@ -1,14 +1,13 @@
 package com.example.grapheneweather.data
 
+import android.content.Context
 import com.example.grapheneweather.network.NetworkModule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class WeatherRepository {
+class WeatherRepository(private val context: Context) {
 
-    companion object {
-        private var cachedWeather: CachedWeather? = null
-    }
+    private val weatherStorage = WeatherStorage(context)
 
     suspend fun getCurrentWeather(): WeatherInfo = withContext(Dispatchers.IO) {
         val response = NetworkModule.weatherApiService.getForecast(
@@ -24,19 +23,12 @@ class WeatherRepository {
             low = "L:${response.daily.temperature_2m_min.first().toInt()}°"
         )
 
-        cachedWeather = CachedWeather(
-            temperature = weather.temperature,
-            condition = weather.condition,
-            locationLabel = weather.locationLabel,
-            high = weather.high,
-            low = weather.low
-        )
-
+        weatherStorage.save(weather)
         weather
     }
 
-    fun getCachedWeather(): WeatherInfo? {
-        return cachedWeather?.toWeatherInfo()
+    suspend fun getCachedWeather(): WeatherInfo? {
+        return weatherStorage.load()
     }
 
     private fun mapWeatherCode(code: Int): String {
