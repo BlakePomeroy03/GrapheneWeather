@@ -19,10 +19,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.glance.appwidget.updateAll
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.example.grapheneweather.data.WeatherInfo
 import com.example.grapheneweather.data.WeatherRepository
 import com.example.grapheneweather.ui.theme.GrapheneWeatherTheme
 import com.example.grapheneweather.widgets.WeatherWidget
+import com.example.grapheneweather.work.WeatherRefreshWorker
+import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
     private lateinit var weatherRepository: WeatherRepository
@@ -32,6 +37,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         weatherRepository = WeatherRepository(applicationContext)
+        scheduleWeatherRefresh()
+        val appContext = applicationContext
 
         setContent {
             GrapheneWeatherTheme {
@@ -41,7 +48,7 @@ class MainActivity : ComponentActivity() {
                 LaunchedEffect(Unit) {
                     try {
                         weather = weatherRepository.getCurrentWeather()
-                        WeatherWidget().updateAll(applicationContext)
+                        WeatherWidget().updateAll(appContext)
                     } catch (e: Exception) {
                         errorMessage = e.message ?: "Unknown error"
                     }
@@ -54,6 +61,18 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    private fun scheduleWeatherRefresh() {
+        val request = PeriodicWorkRequestBuilder<WeatherRefreshWorker>(
+            15, TimeUnit.MINUTES
+        ).build()
+
+        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
+            "weather_refresh",
+            ExistingPeriodicWorkPolicy.KEEP,
+            request
+        )
     }
 }
 
