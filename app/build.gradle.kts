@@ -65,4 +65,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     debugImplementation(libs.androidx.compose.ui.tooling)
+
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.moshi.kotlin)
+
 }

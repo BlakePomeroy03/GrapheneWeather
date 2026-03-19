@@ -17,12 +17,20 @@ import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import com.example.grapheneweather.MainActivity
+import com.example.grapheneweather.data.WeatherInfo
 import com.example.grapheneweather.data.WeatherRepository
 
 class WeatherWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
-        val repository = WeatherRepository()
-        val weather = repository.getCurrentWeather()
+        val weather = try {
+            WeatherRepository().getCurrentWeather()
+        } catch (e: Exception) {
+            WeatherInfo(
+                temperature = "--°",
+                condition = "Unavailable",
+                locationLabel = "Boulder"
+            )
+        }
 
         provideContent {
             Column(
