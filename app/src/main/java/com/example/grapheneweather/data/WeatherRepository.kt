@@ -14,7 +14,9 @@ class WeatherRepository {
         WeatherInfo(
             temperature = "${response.current.temperature_2m.toInt()}°",
             condition = mapWeatherCode(response.current.weather_code),
-            locationLabel = "Boulder"
+            locationLabel = "Boulder",
+            high = "H:${response.daily.temperature_2m_max.first().toInt()}°",
+            low = "L:${response.daily.temperature_2m_min.first().toInt()}°"
         )
     }
 

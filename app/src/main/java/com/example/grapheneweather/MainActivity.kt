@@ -98,5 +98,9 @@ fun WeatherHomeScreen(weather: WeatherInfo) {
             text = weather.condition,
             style = MaterialTheme.typography.titleLarge
         )
+        Text(
+            text = "${weather.high}  ${weather.low}",
+            style = MaterialTheme.typography.bodyLarge
+        )
     }
 }

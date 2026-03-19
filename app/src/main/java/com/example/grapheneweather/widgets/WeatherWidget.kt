@@ -28,7 +28,9 @@ class WeatherWidget : GlanceAppWidget() {
             WeatherInfo(
                 temperature = "--°",
                 condition = "Unavailable",
-                locationLabel = "Boulder"
+                locationLabel = "Boulder",
+                high = "H:--°",
+                low = "L:--°"
             )
         }
 
@@ -54,6 +56,7 @@ class WeatherWidget : GlanceAppWidget() {
                 Spacer(modifier = GlanceModifier.height(4.dp))
 
                 Text(text = weather.condition)
+                Text(text = "${weather.high}  ${weather.low}")
             }
         }
     }
