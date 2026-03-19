@@ -7,6 +7,7 @@ data class OpenMeteoResponse(
 
 data class CurrentWeatherDto(
     val temperature_2m: Double,
+    val apparent_temperature: Double,
     val weather_code: Int
 )
 

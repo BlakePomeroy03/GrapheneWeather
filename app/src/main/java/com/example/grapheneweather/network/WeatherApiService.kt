@@ -8,8 +8,9 @@ interface WeatherApiService {
     suspend fun getForecast(
         @Query("latitude") latitude: Double,
         @Query("longitude") longitude: Double,
-        @Query("current") current: String = "temperature_2m,weather_code",
+        @Query("current") current: String = "temperature_2m,apparent_temperature,weather_code",
         @Query("daily") daily: String = "temperature_2m_max,temperature_2m_min",
+        @Query("temperature_unit") temperatureUnit: String = "fahrenheit",
         @Query("timezone") timezone: String = "auto"
     ): OpenMeteoResponse
 }
