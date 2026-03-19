@@ -19,6 +19,9 @@ import androidx.glance.text.TextStyle
 import com.example.grapheneweather.MainActivity
 import com.example.grapheneweather.data.WeatherInfo
 import com.example.grapheneweather.data.WeatherRepository
+import androidx.compose.ui.graphics.Color
+import androidx.glance.background
+import androidx.glance.color.ColorProvider
 
 class WeatherWidget : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
@@ -36,6 +39,12 @@ class WeatherWidget : GlanceAppWidget() {
             Column(
                 modifier = GlanceModifier
                     .fillMaxSize()
+                    .background(
+                        ColorProvider(
+                            day = Color(0xFF87CEEB),
+                            night = Color(0xFF87CEEB)
+                        )
+                    )
                     .clickable(actionStartActivity<MainActivity>())
                     .padding(16.dp)
             ) {
